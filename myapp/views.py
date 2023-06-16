@@ -3,14 +3,11 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
 from django.conf import settings
-from PIL import Image
-from flask import Flask, request, jsonify
 import base64
 from PIL import Image
 import io
 import face_recognition
 import numpy as np
-import glob
 
 
 
@@ -55,7 +52,7 @@ def find_matching_image(image_data):
     for root, dirs, files in os.walk(settings.STATIC_ROOT):
         for file in files:
             if file.endswith(".jpeg"):
-                image_path = os.path.join(settings.STATIC_ROOT, "images\\")
+                image_path = os.path.join(settings.STATIC_ROOT, "images/")
                 face_image = face_recognition.load_image_file(image_path+ file)
                 face_encodings = face_recognition.face_encodings(face_image)
                 if len(face_encodings) > 0:
