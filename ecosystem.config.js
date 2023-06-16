@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "django-api",
       script: "manage.py",
-      args: "runserver",
+      args: "runserver 0.0.0.0:8000",
       watch: true,
       autorestart: true,
       env: {
