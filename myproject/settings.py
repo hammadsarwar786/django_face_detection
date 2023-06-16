@@ -15,6 +15,7 @@ import dotenv
 dotenv.read_dotenv()
 
 url = os.getenv('url')
+url2 = os.getenv('url2')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
