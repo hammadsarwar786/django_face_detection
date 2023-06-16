@@ -6,6 +6,7 @@ module.exports = {
       args: "runserver 0.0.0.0:8000",
       watch: true,
       autorestart: true,
+      interpreter: "/usr/bin/python3",
       env: {
         DJANGO_SETTINGS_MODULE: "myproject.settings",
       },
