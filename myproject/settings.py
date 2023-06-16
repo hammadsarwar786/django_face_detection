@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dotenv
+dotenv.read_dotenv()
+
+url = os.getenv('url')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +29,7 @@ SECRET_KEY = 'django-insecure-ll!iwuh0a8)yz92h9=u1aoj9c)5o-z%@fb6&@2g+!(r0_%fgp1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.18.39"]
+ALLOWED_HOSTS = [url]
 
 
 # Application definition
