@@ -4,7 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 import os
 from django.conf import settings
 from PIL import Image
-from flask import Flask, request, jsonify
 import base64
 from PIL import Image
 import io
