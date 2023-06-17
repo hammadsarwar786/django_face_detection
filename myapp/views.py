@@ -31,7 +31,7 @@ def post_data(request):
             data = json.loads(request.body)
             image_to_detect = data.get('data')
             matched_image , face_dimension = find_matching_image(image_to_detect)
-            return JsonResponse({"response": matched_image, "face", face_dimension}, status=200)
+            return JsonResponse({"response": matched_image, "face": face_dimension}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({'message': 'Invalid JSON format'}, status=400)
 
