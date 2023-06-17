@@ -62,7 +62,7 @@ def find_matching_image(image_data):
                 if len(face_encodings) > 0:
                     match = face_recognition.compare_faces([face_to_detect], face_encodings[0])
                     if match[0]:
-                        return image_path, face_locations[0],
+                        return file, face_locations[0],
                     else:
                         return "Un Authorized", face_locations[0],
 
