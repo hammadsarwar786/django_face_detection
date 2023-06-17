@@ -60,7 +60,7 @@ def find_matching_image(image_data):
                 if len(face_encodings) > 0:
                     match = face_recognition.compare_faces([face_to_detect], face_encodings[0])
                     if match[0]:
-                        return file
+                        return file.split(".")[0]
 
     # for image_path in image_list:
     #     if image_path.lower().endswith(('.jpg', '.jpeg')):
@@ -71,7 +71,7 @@ def find_matching_image(image_data):
     #             if match[0]:
     #                 return image_path
 
-    return None
+    return JsonResponse({'response': 'No Match'}, status=200)
 
 def detect_face():
     if 'imageToDetect' not in request.json:
