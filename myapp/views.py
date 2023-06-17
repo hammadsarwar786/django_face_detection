@@ -30,8 +30,8 @@ def post_data(request):
         try:
             data = json.loads(request.body)
             image_to_detect = data.get('data')
-            matched_image = find_matching_image(image_to_detect)
-            return JsonResponse({"response": matched_image}, status=200)
+            matched_image , face_dimension = find_matching_image(image_to_detect)
+            return JsonResponse({"response": matched_image, "face", face_dimension}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({'message': 'Invalid JSON format'}, status=400)
 
@@ -62,7 +62,9 @@ def find_matching_image(image_data):
                 if len(face_encodings) > 0:
                     match = face_recognition.compare_faces([face_to_detect], face_encodings[0])
                     if match[0]:
-                        return file, face_locations[0],
+                        return image_path, face_locations[0],
+                    else:
+                        return "Un Authorized", face_locations[0],
 
     # for image_path in image_list:
     #     if image_path.lower().endswith(('.jpg', '.jpeg')):
