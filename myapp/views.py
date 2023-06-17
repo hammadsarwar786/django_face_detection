@@ -31,12 +31,12 @@ def post_data(request):
             data = json.loads(request.body)
             image_to_detect = data.get('data')
             matched_image = find_matching_image(image_to_detect)
-            return JsonResponse({"done": matched_image}, status=200)
+            return JsonResponse({"response": matched_image}, status=200)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+            return JsonResponse({'message': 'Invalid JSON format'}, status=400)
 
     else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+        return JsonResponse({'message': 'Invalid request method'}, status=405)
 
 
 
@@ -60,7 +60,7 @@ def find_matching_image(image_data):
                 if len(face_encodings) > 0:
                     match = face_recognition.compare_faces([face_to_detect], face_encodings[0])
                     if match[0]:
-                        return file.split(".")[0]
+                        return file
 
     # for image_path in image_list:
     #     if image_path.lower().endswith(('.jpg', '.jpeg')):
@@ -71,16 +71,16 @@ def find_matching_image(image_data):
     #             if match[0]:
     #                 return image_path
 
-    return JsonResponse({'response': 'No Match'}, status=200)
+    return None
 
-def detect_face():
-    if 'imageToDetect' not in request.json:
-        return jsonify({'error': 'No imageToDetect parameter provided'}), 400
+# def detect_face():
+#     if 'imageToDetect' not in request.json:
+#         return jsonify({'error': 'No imageToDetect parameter provided'}), 400
 
-    image_to_detect = request.json['imageToDetect']
-    matched_image = find_matching_image(image_to_detect)
+#     image_to_detect = request.json['imageToDetect']
+#     matched_image = find_matching_image(image_to_detect)
 
-    if matched_image:
-        return jsonify({'matchedImage': matched_image}), 200
-    else:
-        return jsonify({'message': 'Image not found'}), 404
+#     if matched_image:
+#         return jsonify({'matchedImage': matched_image}), 200
+#     else:
+#         return jsonify({'message': 'Image not found'}), 404
