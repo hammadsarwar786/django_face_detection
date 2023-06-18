@@ -57,15 +57,18 @@ def find_matching_image(image_data):
             if file.endswith(".jpeg"):
                 image_path = os.path.join(settings.STATIC_ROOT, "images/")
                 face_image = face_recognition.load_image_file(image_path+ file)
+
+                #get face
+                face_location = face_recognition.face_locations(np.array(image_to_detect))[0]
                 # new code
                 face_locations = face_recognition.face_locations(face_image)  # Retrieve face bounding box coordinates
                 face_encodings = face_recognition.face_encodings(face_image, face_locations)
                 if len(face_encodings) > 0:
                     match = face_recognition.compare_faces([face_to_detect], face_encodings[0])
                     if match[0]:
-                        return "true", "Authorized", file, face_locations[0],
+                        return "true", "Authorized", file, face_location,
                     else:
-                        return "false", "Un Authorized", "null", face_locations[0],
+                        return "false", "Un Authorized", "null", face_location,
 
     # for image_path in image_list:
     #     if image_path.lower().endswith(('.jpg', '.jpeg')):
