@@ -54,7 +54,7 @@ def find_matching_image(image_data):
 
     for root, dirs, files in os.walk(settings.STATIC_ROOT):
         for file in files:
-            if file.endswith(".jpeg"):
+            if file.endswith(".jpg") or file.endswith(".jpeg"):
                 image_path = os.path.join(settings.STATIC_ROOT, "images/")
                 face_image = face_recognition.load_image_file(image_path+ file)
 
@@ -79,7 +79,7 @@ def find_matching_image(image_data):
     #             if match[0]:
     #                 return image_path
 
-    return "error", "error", "error", "error"
+    return None
 
 # def detect_face():
 #     if 'imageToDetect' not in request.json:
