@@ -15,6 +15,10 @@ import dotenv
 dotenv.read_dotenv()
 
 url = os.getenv('url')
+<<<<<<< HEAD
+=======
+url2 = os.getenv('url2')
+>>>>>>> d99c59aed6c7932998e59de289a955c0acc3ef61
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +33,11 @@ SECRET_KEY = 'django-insecure-ll!iwuh0a8)yz92h9=u1aoj9c)5o-z%@fb6&@2g+!(r0_%fgp1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = [url]
+=======
+ALLOWED_HOSTS = [url, url2]
+>>>>>>> d99c59aed6c7932998e59de289a955c0acc3ef61
 
 
 # Application definition

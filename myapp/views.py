@@ -3,6 +3,10 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
 from django.conf import settings
+<<<<<<< HEAD
+=======
+from PIL import Image
+>>>>>>> d99c59aed6c7932998e59de289a955c0acc3ef61
 import base64
 from PIL import Image
 import io
@@ -28,19 +32,20 @@ def post_data(request):
         try:
             data = json.loads(request.body)
             image_to_detect = data.get('data')
-            matched_image = find_matching_image(image_to_detect)
-            return JsonResponse({"done": matched_image}, status=200)
+            success, message, matched_image, face_dimension = find_matching_image(image_to_detect)
+            return JsonResponse({"success": success, "message": message, "data": matched_image, "face": face_dimension}, status=200)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+            return JsonResponse({'message': 'Invalid JSON format'}, status=400)
 
     else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+        return JsonResponse({'message': 'Invalid request method'}, status=405)
 
 
 
 
 def preprocess_image(image_data):
-    encoded = image_data.split(",")[1]
+    #.split(",")[1]
+    encoded = image_data
     image_bytes = base64.b64decode(encoded)
     image = Image.open(io.BytesIO(image_bytes)).convert('RGB')
     return image
@@ -54,11 +59,18 @@ def find_matching_image(image_data):
             if file.endswith(".jpeg"):
                 image_path = os.path.join(settings.STATIC_ROOT, "images/")
                 face_image = face_recognition.load_image_file(image_path+ file)
-                face_encodings = face_recognition.face_encodings(face_image)
+
+                #get face
+                face_location = face_recognition.face_locations(np.array(image_to_detect))[0]
+                # new code
+                face_locations = face_recognition.face_locations(face_image)  # Retrieve face bounding box coordinates
+                face_encodings = face_recognition.face_encodings(face_image, face_locations)
                 if len(face_encodings) > 0:
                     match = face_recognition.compare_faces([face_to_detect], face_encodings[0])
                     if match[0]:
-                        return file
+                        return "true", "Authorized", file, face_location,
+                    else:
+                        return "false", "Un Authorized", "null", face_location,
 
     # for image_path in image_list:
     #     if image_path.lower().endswith(('.jpg', '.jpeg')):
@@ -71,14 +83,14 @@ def find_matching_image(image_data):
 
     return None
 
-def detect_face():
-    if 'imageToDetect' not in request.json:
-        return jsonify({'error': 'No imageToDetect parameter provided'}), 400
+# def detect_face():
+#     if 'imageToDetect' not in request.json:
+#         return jsonify({'error': 'No imageToDetect parameter provided'}), 400
 
-    image_to_detect = request.json['imageToDetect']
-    matched_image = find_matching_image(image_to_detect)
+#     image_to_detect = request.json['imageToDetect']
+#     matched_image = find_matching_image(image_to_detect)
 
-    if matched_image:
-        return jsonify({'matchedImage': matched_image}), 200
-    else:
-        return jsonify({'message': 'Image not found'}), 404
+#     if matched_image:
+#         return jsonify({'matchedImage': matched_image}), 200
+#     else:
+#         return jsonify({'message': 'Image not found'}), 404
