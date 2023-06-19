@@ -3,10 +3,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
 from django.conf import settings
-<<<<<<< HEAD
-=======
 from PIL import Image
->>>>>>> d99c59aed6c7932998e59de289a955c0acc3ef61
+
 import base64
 from PIL import Image
 import io
