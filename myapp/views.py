@@ -4,12 +4,12 @@ from django.views.decorators.csrf import csrf_exempt
 import os
 from django.conf import settings
 from PIL import Image
-
 import base64
 from PIL import Image
 import io
 import face_recognition
 import numpy as np
+import glob
 
 
 
