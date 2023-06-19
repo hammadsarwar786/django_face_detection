@@ -79,7 +79,7 @@ def find_matching_image(image_data):
     #             if match[0]:
     #                 return image_path
 
-    return None
+    return "error", "error", "error", "error"
 
 # def detect_face():
 #     if 'imageToDetect' not in request.json:
