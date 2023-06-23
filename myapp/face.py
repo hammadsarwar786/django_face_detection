@@ -26,7 +26,7 @@ face_detector = mtcnn.MTCNN()
 face_encoder = load_model(encoder_model)
 
 @csrf_exempt
-def post_data(request):
+def post_data2(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
